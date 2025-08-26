@@ -1,0 +1,251 @@
+
+
+
+
+
+retorno=$(python -c "from python.path import list_directory; list_directory('$rota')")
+
+
+cat << EOF
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Arquivos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nautilus-bg': '#2d2d2d',
+                        'nautilus-sidebar': '#3c3c3c',
+                        'nautilus-folder': '#3584e4',
+                        'nautilus-text': '#ffffff',
+                        'nautilus-text-secondary': '#cccccc',
+                        'nautilus-hover': '#404040'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body class="bg-nautilus-bg text-nautilus-text font-sans overflow-hidden">
+
+
+    <input hidden type="text" id="dados-dir" value="$retorno">
+    <input hidden type="text" id="path-dir" value="$rota">
+    <input hidden type="text" id="user" value="$USER">
+
+
+
+    <div class="flex h-screen">
+        <!-- Barra lateral -->
+        <div class="w-64 bg-nautilus-sidebar border-r border-gray-600 flex flex-col">
+            <!-- Cabeçalho da barra lateral -->
+            <div class="p-4 border-b border-gray-600">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">Places</h2>
+                    <button class="p-1 hover:bg-nautilus-hover rounded">
+                        <i class="fas fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Lista de locais -->
+            <div class="flex-1 p-2">
+                <div class="space-y-1">
+                    <a href="./file_search.sh.htm?rota=/home">
+
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="recent">
+                            <i class="fas fa-clock w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Recent</span>
+                        </div>
+                    </a>
+                    <a href="./file_search.sh.htm?rota=/home">
+
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="starred">
+                            <i class="fas fa-star w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Starred</span>
+                        </div>
+                    </a>
+
+
+                    <a href="./file_search.sh.htm?rota=/$USER">
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer bg-nautilus-hover" data-path="home">
+                            <i class="fas fa-home w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Home</span>
+                        </div>
+                    </a>
+
+
+                    <a href="./file_search.sh.htm?rota=/home/$USER/Documentos">
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="documents">
+                            <i class="fas fa-file-alt w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Documents</span>
+                        </div>
+                    </a>
+                    
+                    <a href="./file_search.sh.htm?rota=/home/$USER/Downloads">
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="downloads">
+                            <i class="fas fa-download w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Downloads</span>
+                        </div>
+                    </a>
+
+                    <a href="./file_search.sh.htm?rota=/home/$USER/Músicas">
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="music">
+                            <i class="fas fa-music w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Music</span>
+                        </div>
+                    </a>
+                    <a href="./file_search.sh.htm?rota=/home/$USER/Imagens">
+
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="pictures">
+                            <i class="fas fa-image w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Pictures</span>
+                        </div>
+                    </a>
+                    <a href="./file_search.sh.htm?rota=/home/$USER/Vídeos">
+
+                        <div  class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="videos">
+                            <i class="fas fa-video w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Videos</span>
+                        </div>
+                    </a>
+                    <a href="./file_search.sh.htm?rota=/.local/share/Trash/">
+
+                        <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="trash">
+                            <i class="fas fa-trash w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                            <span>Trash</span>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- Outros locais -->
+                <div class="mt-6">
+                    <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="other">
+                        <i class="fas fa-plus w-5 text-center mr-3 text-nautilus-text-secondary"></i>
+                        <span>Other Locations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Área principal -->
+        <div class="flex-1 flex flex-col">
+            <!-- Barra de ferramentas -->
+            <div class="bg-nautilus-sidebar border-b border-gray-600 p-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <!-- Botões de navegação -->
+                        <button id="back-btn" class="p-2 hover:bg-nautilus-hover rounded disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <button id="forward-btn" class="p-2 hover:bg-nautilus-hover rounded disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        
+                        <!-- Breadcrumb -->
+                        <div class="flex items-center ml-4">
+                            <i class="fas fa-home mr-2"></i>
+                            <div id="breadcrumb" class="flex items-center space-x-1">
+                                <span class="breadcrumb-item" data-path="home">Home</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        <!-- Botão de busca -->
+                        <button class="p-2 hover:bg-nautilus-hover rounded">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        
+                        <!-- Botões de visualização -->
+                        <button id="view-grid" class="p-2 hover:bg-nautilus-hover rounded bg-nautilus-hover">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button id="view-list" class="p-2 hover:bg-nautilus-hover rounded">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        
+                        <!-- Menu -->
+                        <button class="p-2 hover:bg-nautilus-hover rounded">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        
+                        <!-- Fechar -->
+                        <button class="p-2 hover:bg-red-600 rounded">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Área de conteúdo -->
+            <div class="flex-1 p-6 overflow-auto relative" id="content-area">
+                <div id="file-grid" class="grid grid-cols-6 gap-6">
+                    <!-- Os arquivos e pastas serão inseridos aqui dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Menu de contexto -->
+    <div id="context-menu" class="context-menu">
+        <div class="py-1">
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="copy">
+                <i class="fas fa-copy mr-2"></i>
+                Copiar
+            </div>
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="cut">
+                <i class="fas fa-cut mr-2"></i>
+                Recortar
+            </div>
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="paste">
+                <i class="fas fa-paste mr-2"></i>
+                Colar
+            </div>
+            <hr class="border-gray-600 my-1">
+
+
+
+
+
+
+
+            <hr class="border-gray-600 my-1">
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="rename">
+                <i class="fas fa-edit mr-2"></i>
+                Renomear
+            </div>
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="delete">
+                <i class="fas fa-trash mr-2"></i>
+                Excluir
+            </div>
+            <hr class="border-gray-600 my-1">
+            <div class="context-item px-4 py-2 hover:bg-nautilus-bg cursor-pointer" data-action="properties">
+                <i class="fas fa-info-circle mr-2"></i>
+                Propriedades
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip"></div>
+    
+    <!-- Caixa de seleção -->
+    <div id="selection-box" class="selection-box" style="display: none;"></div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+EOF
+
+
