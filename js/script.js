@@ -221,13 +221,10 @@ class FileManager {
     
     renderCurrentFolder() {
          var getDados = document.getElementById('dados-dir').value
-         console.log(getDados)
          var dadosT = getDados.replace(/'/g, '"')
          .replace(/False/g, 'false')
          .replace(/True/g, 'true');
-        //  console.log(dadosT)
         var dadosDir = JSON.parse(dadosT)
-        // console.log(dadosDir)
         const fileGrid = document.getElementById('file-grid');
         const currentFolder = this.fileSystem[this.currentPath];
         
@@ -261,7 +258,6 @@ class FileManager {
             
             fileGrid.appendChild(fileItem);
 
-            //console.log(item.name)
         })
         
         // currentFolder.items.forEach((item, index) => {
@@ -316,7 +312,6 @@ class FileManager {
         } else {
             path = path.replace(/\/\/+/g, '/');            
             console.log(path);
-            console.log(`Abrindo arquivo: ${item.name}`);
             _run(`xdg-open "${path}/${item.name}"`)
         }
     }
@@ -373,7 +368,6 @@ class FileManager {
         switch (action) {
             case 'copy':
                 this.copySelectedItems();
-                console.log(e)
                  Swal.fire('Copiado!')
                 break;
             case 'cut':
@@ -397,6 +391,7 @@ class FileManager {
     }
     
     copySelectedItems() {
+        const rota = document.getElementById('path-dir').value;
         if (this.selectedItems.size > 0) {
             this.clipboard = Array.from(this.selectedItems);
             this.clipboardAction = 'copy';
@@ -405,38 +400,49 @@ class FileManager {
     }
     
     cutSelectedItems() {
+        const rota = document.getElementById('path-dir').value;
         if (this.selectedItems.size > 0) {
-            this.clipboard = Array.from(this.selectedItems);
+            this.clipboard = 'file://'+rota+'/'+ Array.from(this.selectedItems);
             this.clipboardAction = 'cut';
+            _run(`readlink -f "novo nome.txt" | xsel --clipboard --input`);
             console.log('Itens recortados:', this.clipboard);
         }
     }
     
     pasteItems() {
+        const rota = document.getElementById('path-dir').value;
         if (this.clipboard && this.clipboard.length > 0) {
             console.log(`Colando itens (${this.clipboardAction}):`, this.clipboard);
             Swal.fire(`Colando itens (${this.clipboardAction}):`, this.clipboard);
-            // Aqui seria implementada a lógica real de colar
         }
     }
     
     renameSelectedItem() {
+        const rota = document.getElementById('path-dir').value;
         if (this.selectedItems.size === 1) {
             const itemName = Array.from(this.selectedItems)[0];
             const newName = prompt('Novo nome:', itemName);
             if (newName && newName !== itemName) {
+                console.log(rota)
+                _run(`mv "${rota}/${itemName}" "${rota}/${newName}"`);
                 console.log(`Renomeando ${itemName} para ${newName}`);
-                // Aqui seria implementada a lógica real de renomear
+                window.location.reload();
             }
         }
     }
     
     deleteSelectedItems() {
+        const rota = document.getElementById('path-dir').value;
         if (this.selectedItems.size > 0) {
             const items = Array.from(this.selectedItems);
+
             if (confirm(`Deseja excluir ${items.length} item(s)?`)) {
+                for(var i = 0; i < items.length;i++){
+
+                    _run(`rm "${rota}/${items[i]}"`);
+                }
                 console.log('Excluindo itens:', items);
-                // Aqui seria implementada a lógica real de exclusão
+                window.location.reload();
             }
         }
     }
