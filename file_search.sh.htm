@@ -2,7 +2,6 @@
 
 
 
-
 retorno=$(python -c "from python.path import list_directory; list_directory('$rota')")
 
 
@@ -76,7 +75,7 @@ cat << EOF
                     </a>
 
 
-                    <a href="./file_search.sh.htm?rota=/$USER">
+                    <a href="./file_search.sh.htm?rota=/home/$USER">
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer bg-nautilus-hover" data-path="home">
                             <i class="fas fa-home w-5 text-center mr-3 text-nautilus-text-secondary"></i>
                             <span>Home</span>
@@ -118,11 +117,11 @@ cat << EOF
                             <span>Videos</span>
                         </div>
                     </a>
-                    <a href="./file_search.sh.htm?rota=/.local/share/Trash/">
+                    <a href="./file_search.sh.htm?rota=/home/$USER/.local/share/Trash/files">
 
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="trash">
                             <i class="fas fa-trash w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Trash</span>
+                            <span>Lixeira</span>
                         </div>
                     </a>
 
@@ -155,8 +154,8 @@ cat << EOF
                         <div class="flex items-center ml-4">
                             <i class="fas fa-home mr-2"></i>
                             <div id="breadcrumb" class="flex items-center space-x-1">
-                                <span class="breadcrumb-item" data-path="home">Home</span>
-                            </div>
+                                <span id="path-now" class="breadcrumb-item" data-path="home">$rota</span>
+                            </div>$rota
                         </div>
                     </div>
                     

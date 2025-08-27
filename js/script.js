@@ -1,4 +1,26 @@
 // Gerenciador de Arquivos - JavaScript
+
+
+
+
+function formatTime(time){
+    const data = new Date(time);
+
+const dia = String(data.getDate()).padStart(2, '0');
+const mes = String(data.getMonth() + 1).padStart(2, '0'); // Os meses são baseados em 0
+const ano = data.getFullYear();
+const hora = String(data.getHours()).padStart(2, '0');
+const minutos = String(data.getMinutes()).padStart(2, '0');
+const segundos = String(data.getSeconds()).padStart(2, '0');
+
+const dataFormatada = `${dia}/${mes}/${ano} - ${hora}:${minutos}:${segundos}`;
+
+return dataFormatada;
+}
+
+
+
+
 class FileManager {
     constructor() {
         this.currentPath = 'home';
@@ -199,7 +221,7 @@ class FileManager {
     
     renderCurrentFolder() {
          var getDados = document.getElementById('dados-dir').value
-        //  console.log(getDados)
+         console.log(getDados)
          var dadosT = getDados.replace(/'/g, '"')
          .replace(/False/g, 'false')
          .replace(/True/g, 'true');
@@ -299,6 +321,10 @@ class FileManager {
         }
     }
     
+
+
+
+
     showTooltip(e, item) {
         setTimeout(function () {
         
@@ -306,7 +332,7 @@ class FileManager {
             tooltip.innerHTML = `
                 <div><strong>${item.name}</strong></div>
                 <div>Tamanho: ${item.size}</div>
-                <div>Modificado: ${item.modified}</div>
+                <div>Modificado: ${formatTime(item.modified)}</div>
             `;
             
             tooltip.style.left = e.pageX + 10 + 'px';
@@ -574,3 +600,18 @@ document.addEventListener('DOMContentLoaded', () => {
     new FileManager();
 });
 
+
+
+
+
+// os.stat_result(
+// st_mode=16877,
+//  st_ino=68888,
+//   st_dev=47,
+//    st_nlink=1,
+//     st_uid=1000,
+//      st_gid=1008,
+//       st_size=54,
+//        st_atime=1755454226,
+//         st_mtime=1755454253, 
+//         st_ctime=1755454253)
