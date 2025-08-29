@@ -255,6 +255,7 @@ class FileManager {
             fileItem.addEventListener('dblclick', (e) => this.openItem(e, item));
             fileItem.addEventListener('mouseenter', (e) => this.showTooltip(e, item));
             fileItem.addEventListener('mouseleave', () => this.hideTooltip());
+            fileItem.addEventListener('mousedown', (e) => this.selectItem(e, fileItem));
             
             fileGrid.appendChild(fileItem);
 
@@ -300,6 +301,11 @@ class FileManager {
             this.selectedItems.delete(itemName);
             fileItem.classList.remove('selected');
         } else {
+             if (e.button === 2){
+
+                 this.selectedItems.add(itemName);
+                 fileItem.classList.add('selected');
+             }
             this.selectedItems.add(itemName);
             fileItem.classList.add('selected');
         }
@@ -368,7 +374,7 @@ class FileManager {
         switch (action) {
             case 'copy':
                 this.copySelectedItems();
-                 Swal.fire('Copiado!')
+                 //Swal.fire('Copiado!')
                 break;
             case 'cut':
                 this.cutSelectedItems();

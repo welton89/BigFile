@@ -20,7 +20,7 @@ cat << EOF
                 extend: {
                     colors: {
                         'nautilus-bg': '#2d2d2d',
-                        'nautilus-sidebar': '#3c3c3c',
+                        'nautilus-sidebar': '#292929',
                         'nautilus-folder': '#3584e4',
                         'nautilus-text': '#ffffff',
                         'nautilus-text-secondary': '#cccccc',
@@ -34,8 +34,8 @@ cat << EOF
     <link rel="stylesheet" href="css/style.css">
   
 </head>
-<body class="bg-nautilus-bg text-nautilus-text font-sans overflow-hidden">
-
+<body class="no-select text-nautilus-text font-sans overflow-hidden">
+<!-- bg-nautilus-bg -->
 
     <input hidden type="text" id="dados-dir" value="$retorno">
     <input hidden type="text" id="path-dir" value="$rota">
@@ -45,11 +45,12 @@ cat << EOF
 
     <div class="flex h-screen">
         <!-- Barra lateral -->
-        <div class="w-64 bg-nautilus-sidebar border-r border-gray-600 flex flex-col">
+        <div class="w-64   drop-shadow-x1  flex flex-col ">
+            <!-- bg-nautilus-sidebar -->
             <!-- Cabeçalho da barra lateral -->
-            <div class="p-4 border-b border-gray-600">
+            <div class="p-4  bg-nautilus-sidebar  drop-shadow-lg drop-shadow-indigo-900/50 ">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold">Places</h2>
+                    <h2 class="text-lg font-semibold">Locais</h2>
                     <button class="p-1 hover:bg-nautilus-hover rounded">
                         <i class="fas fa-bars text-sm"></i>
                     </button>
@@ -57,20 +58,20 @@ cat << EOF
             </div>
             
             <!-- Lista de locais -->
-            <div class="flex-1 p-2">
+            <div class="flex-1 p-2 bg-nautilus-sidebar  drop-shadow-lg drop-shadow-indigo-100/50">
                 <div class="space-y-1">
                     <a href="./file_search.sh.htm?rota=/home">
 
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="recent">
                             <i class="fas fa-clock w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Recent</span>
+                            <span>Recentes</span>
                         </div>
                     </a>
                     <a href="./file_search.sh.htm?rota=/home">
 
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="starred">
                             <i class="fas fa-star w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Starred</span>
+                            <span>Favoritos</span>
                         </div>
                     </a>
 
@@ -86,7 +87,7 @@ cat << EOF
                     <a href="./file_search.sh.htm?rota=/home/$USER/Documentos">
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="documents">
                             <i class="fas fa-file-alt w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Documents</span>
+                            <span>Documentos</span>
                         </div>
                     </a>
                     
@@ -100,14 +101,14 @@ cat << EOF
                     <a href="./file_search.sh.htm?rota=/home/$USER/Músicas">
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="music">
                             <i class="fas fa-music w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Music</span>
+                            <span>Músicas</span>
                         </div>
                     </a>
                     <a href="./file_search.sh.htm?rota=/home/$USER/Imagens">
 
                         <div class="sidebar-item flex items-center p-2 hover:bg-nautilus-hover rounded cursor-pointer" data-path="pictures">
                             <i class="fas fa-image w-5 text-center mr-3 text-nautilus-text-secondary"></i>
-                            <span>Pictures</span>
+                            <span>Imagens</span>
                         </div>
                     </a>
                     <a href="./file_search.sh.htm?rota=/home/$USER/Vídeos">
@@ -137,9 +138,9 @@ cat << EOF
         </div>
         
         <!-- Área principal -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col bg-nautilus-bg">
             <!-- Barra de ferramentas -->
-            <div class="bg-nautilus-sidebar border-b border-gray-600 p-3">
+            <div class="bg-nautilus-bg  p-3 shadow-lg">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-2">
                         <!-- Botões de navegação -->
